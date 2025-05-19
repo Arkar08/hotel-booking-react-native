@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.arkar08.hotelapp"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +38,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d36202a0-8224-4ce8-b804-b41949a9f60b"
+      }
+    },
+    "owner": "arkar08"
   }
 }
