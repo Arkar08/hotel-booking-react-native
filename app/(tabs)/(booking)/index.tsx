@@ -22,6 +22,7 @@ const Booking = () => {
             data={data}
             keyExtractor={(data) => data.id}
             renderItem={BookingCard}
+            showsVerticalScrollIndicator={false}
           />
         </View>
       </View>

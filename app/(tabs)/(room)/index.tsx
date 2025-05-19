@@ -1,13 +1,18 @@
+import Activity from "@/components/Activity";
 import Card from "@/components/Card";
 import { data } from "@/utils/dummy";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Room = () => {
+
+  const [loading,setLoading] = useState(false)
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -21,15 +26,24 @@ const Room = () => {
           <FontAwesome name="search" size={24} style={styles.inputIcon} />
           <TextInput style={styles.input} placeholder="Search" />
         </View>
-        <View style={styles.cardList}>
-          <FlatList
-            style={styles.cardContainer}
-            data={data}
-            keyExtractor={(data) => data.id}
-            renderItem={Card}
-            numColumns={2}
-          />
-        </View>
+        {
+          loading ? (
+            <View style={{justifyContent:'center',alignItems:'center',margin:'auto',height:'80%'}}>
+              <Activity />
+            </View>
+          ) : (
+             <View style={styles.cardList}>
+              <FlatList
+                style={styles.cardContainer}
+                data={data}
+                keyExtractor={(data) => data.id}
+                renderItem={Card}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+              />
+            </View>
+          )
+        }
       </View>
     </SafeAreaView>
   );
