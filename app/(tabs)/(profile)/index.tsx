@@ -1,5 +1,7 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -41,21 +43,21 @@ const Profile = () => {
           onPress={() => router.push("/(booking)")}
         >
           <View style={styles.personal}>
-            <FontAwesome name="user" size={22} />
+            <MaterialIcons name="history" size={22}/>
             <Text style={styles.personalText}>Booking History</Text>
           </View>
           <AntDesign name="right" size={22} color="gray" />
         </Pressable>
-        {/* <Pressable
+        <Pressable
           style={styles.footerCard}
           onPress={() => router.push("/notification")}
         >
           <View style={styles.personal}>
-            <FontAwesome name="user" size={22} />
+            <Ionicons name="notifications-sharp" size={22} />
             <Text style={styles.personalText}>Notification</Text>
           </View>
           <AntDesign name="right" size={22} color="gray" />
-        </Pressable> */}
+        </Pressable>
         {/* <Pressable
           style={styles.footerCard}
           onPress={() => router.push("/(navigate)/payment")}
@@ -68,7 +70,7 @@ const Profile = () => {
         </Pressable> */}
         <Pressable style={styles.footerCard} onPress={logout}>
           <View style={styles.personal}>
-            <FontAwesome name="user" size={22} />
+            <MaterialIcons name="logout" size={22} />
             <Text style={styles.personalText}>Logout</Text>
           </View>
           <AntDesign name="right" size={22} color="gray" />
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   textContainer: {
-    gap: 5,
+    gap: 10,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
@@ -128,8 +130,9 @@ const styles = StyleSheet.create({
   },
   personal: {
     flexDirection: "row",
-    gap: 15,
+    gap: 20,
     alignItems: "center",
+    justifyContent:'center'
   },
   personalText: {
     fontSize: 16,

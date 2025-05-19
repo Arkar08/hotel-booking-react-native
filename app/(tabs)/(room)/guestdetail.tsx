@@ -1,14 +1,25 @@
 import Input from "@/components/Input";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const GuestDetail = () => {
 
     const router = useRouter();
 
+    const [edit,setEdit] = useState(true)
+
     const proceedToPayment = () => {
         router.push("/payment")
+    }
+    
+    const  editClass = () => {
+        setEdit(false)
+    }
+
+    const editGuest = () => {
+        setEdit(true)
     }
 
     return (
@@ -16,22 +27,33 @@ const GuestDetail = () => {
             <View style={styles.mainContainer}>
                 <View style={styles.inputContainer}>
                     <Text style={styles.label}>Name</Text>
-                    <Input placeholder="Enter Name"/>
+                    <Input placeholder="Enter Name" editable={edit}/>
                 </View>
                 <View style={styles.inputContainer}>
                     <Text style={styles.label}>Email</Text>
-                    <Input placeholder="Enter Email"/>
+                    <Input placeholder="Enter Email" editable={edit}/>
                 </View>
                 <View style={styles.inputContainer}>
                     <Text style={styles.label}>Phone Number</Text>
-                    <Input placeholder="Enter phNo" maxLength={10} keyboardType="numeric"/>
+                    <Input placeholder="Enter phNo" maxLength={10} keyboardType="numeric" editable={edit}/>
                 </View>
-                <View style={styles.inputContainer}>
-                    <Pressable style={styles.btnContainer1}>
-                        <Ionicons name="add" color='white' size={24}/>
-                        <Text style={styles.btnText}>Add Guest Details</Text>
-                    </Pressable>
-                </View>
+                {
+                    edit ? (
+                        <View style={styles.inputContainer}>
+                            <Pressable style={styles.btnContainer1} onPress={editClass}>
+                                <Feather name="plus-square" size={20} color="white" />
+                                <Text style={styles.btnText}>Add Guest Details</Text>
+                            </Pressable>
+                        </View>
+                    ):(
+                         <View style={styles.inputContainer}>
+                            <Pressable style={styles.btnContainer1} onPress={editGuest}>
+                                <Feather name="edit" size={20} color="white" />
+                                <Text style={styles.btnText}>Edit Guest Details</Text>
+                            </Pressable>
+                        </View>
+                    )
+                }
             </View>
             <View style={styles.footerContainer}>
                 <View style={styles.textContainer}>
@@ -107,7 +129,8 @@ const styles = StyleSheet.create({
     },
     btnText:{
         color:"white",
-        textAlign:'center'
+        textAlign:'center',
+        fontSize:16
     }
 })
 

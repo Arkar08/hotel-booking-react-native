@@ -39,17 +39,17 @@ const styles = StyleSheet.create({
     card:{
         width:350,
         height:300,
-        borderWidth:0.5,
-        borderRadius:20,
+        borderWidth: 0.3,
+        borderRadius:10,
         position:'relative',
-        marginTop:10,
+        marginVertical:30,
         marginHorizontal:'auto'
     },
     cardImage:{
         width:'100%',
         height:'60%',
-        borderTopLeftRadius:20,
-        borderTopRightRadius:20
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10
     },
     button:{
         backgroundColor:'green',

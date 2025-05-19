@@ -35,9 +35,6 @@ const RoomDetails = () => {
         <View>
           <Image source={roomImage} style={styles.crousalImage} />
         </View>
-        <View>
-          <Image source={roomImage} style={styles.crousalImage} />
-        </View>
       </View>
       <View style={styles.middleContainer}>
         <Text style={styles.roomType}>Super Delux Room</Text>
@@ -100,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   detailText: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "400",
     marginTop: 10,
   },
@@ -137,8 +134,8 @@ const styles = StyleSheet.create({
     marginHorizontal: "auto",
   },
   crousalImage: {
-    width: 90,
-    height: 90,
+    width: 120,
+    height: 120,
     borderRadius: 10,
   },
 });

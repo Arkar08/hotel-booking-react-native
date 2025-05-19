@@ -33,8 +33,8 @@ export default Card;
 const styles = StyleSheet.create({
     cardContainer:{
         width:'47%',
-        borderWidth:1,
-        height:250,
+        borderWidth:0.3,
+        height:280,
         marginTop:15,
         borderRadius:10,
         margin:'auto',

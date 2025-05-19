@@ -1,16 +1,19 @@
+import Modals from "@/components/Modals";
 import { data } from "@/utils/dummy";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
 } from "react-native";
+import { SelectList } from "react-native-dropdown-select-list";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -18,6 +21,19 @@ const cardImage = require("@/assets/images/loginImage4.png");
 
 const Home = () => {
   const router = useRouter();
+  const [modalVisiable,setModalVisiable]  = useState(false)
+        const [selected, setSelected] = useState("");
+  
+    const select = [
+        {key:'1', value:'Mobiles'},
+        {key:'2', value:'Appliances'},
+        {key:'3', value:'Cameras'},
+        {key:'4', value:'Computers'},
+        {key:'5', value:'Vegetables'},
+        {key:'6', value:'Diary Products'},
+        {key:'7', value:'Drinks'},
+    ]
+
 
   const viewDetails = (id: string) => {
     router.navigate({
@@ -33,6 +49,15 @@ const Home = () => {
   const popularClick = () => {
     router.push("/(room)/popular");
   };
+
+  const closeModal = () =>{
+    setModalVisiable(false)
+  }
+
+  const filter = () =>{
+    console.log(selected)
+    setModalVisiable(false)
+  }
 
   const renderItem = ({ item }: any) => {
     return (
@@ -68,7 +93,7 @@ const Home = () => {
         <View style={styles.inputContainer}>
           <FontAwesome name="search" size={24} style={styles.inputIcon} />
           <TextInput style={styles.input} placeholder="Search" />
-          <Pressable style={styles.filterIcon}>
+          <Pressable style={styles.filterIcon} onPress={()=>setModalVisiable(true)}>
             <MaterialIcons name="filter-list" size={24} color="black" />
           </Pressable>
         </View>
@@ -104,6 +129,31 @@ const Home = () => {
             showsHorizontalScrollIndicator={false}
           />
         </View>
+      </View>
+
+      <View>
+        <Modals visiable={modalVisiable} title="Filter Rooms" close={closeModal}>
+          <View style={{marginTop:30,position:'relative',height:300}}>
+              <View>
+                  <Text style={styles.label}>Room Type</Text>
+                  <SelectList 
+                    setSelected={setSelected} 
+                    data={select}
+                    placeholder='Select Room Type'
+                    maxHeight={150}
+                    boxStyles={{backgroundColor:"#E5E5E5",padding:15,borderRadius:20,borderWidth:0}}
+                  />
+              </View>
+              <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',gap:10,position:'absolute',bottom:0,left:15}}>
+                  <Pressable style={{padding:10,backgroundColor:"red",width:150,borderRadius:10}} onPress={closeModal}>
+                    <Text style={{textAlign:'center',color:'white'}}>Reset</Text>
+                  </Pressable>
+                  <Pressable style={{padding:10,backgroundColor:"green",width:150,borderRadius:10}} onPress={filter}>
+                    <Text style={{textAlign:'center',color:'white'}}>Filter</Text>
+                  </Pressable>
+              </View>
+          </View>
+        </Modals>
       </View>
     </SafeAreaView>
   );
@@ -164,16 +214,16 @@ const styles = StyleSheet.create({
   card: {
     width: 300,
     height: 240,
-    borderWidth: 0.5,
-    borderRadius: 20,
+    borderWidth: 0.3,
+    borderRadius: 10,
     marginRight: 20,
     position: "relative",
   },
   cardImage: {
     width: "100%",
     height: "60%",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   button: {
     backgroundColor: "green",
@@ -218,6 +268,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
+  label:{
+    fontWeight:'bold',
+    fontSize:16,
+    marginBottom:10
+  }
 });
 
 export default Home;

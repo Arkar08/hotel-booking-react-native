@@ -7,12 +7,24 @@ import { Pressable, ScrollView } from "react-native-gesture-handler";
 const Payment = () => {
 
     const [isChecked, setChecked] = useState(false);
+    const [bankCheck,setBankCheck] = useState(false)
 
     const router = useRouter();
     const booking = () => {
         alert("booking successfully.")
         router.push("/history")
     }
+
+    const cardClick = (text:string) => {
+        if(text === 'cash'){
+            setBankCheck(false)
+            setChecked(true)
+        }else{
+            setBankCheck(true)
+            setChecked(false)
+        }
+    }
+
 
     return (
         <ScrollView style={styles.container}>
@@ -68,22 +80,20 @@ const Payment = () => {
             <View  style={styles.mainContainer}>
                 <Text style={styles.mainText}>Select Your Payment</Text>
                 <View style={styles.cardContainer}>
-                    <Pressable style={styles.card}>
+                    <Pressable style={styles.card} onPress={()=>cardClick('cash')}>
                         <Text style={styles.cardText}>Cash</Text>
                         <Checkbox
                             style={styles.checkbox}
                             value={isChecked}
-                            onValueChange={setChecked}
-                            color={isChecked ? 'blue' : undefined}
+                            color={isChecked ? 'green' : undefined}
                         />
                     </Pressable>
-                    <Pressable style={styles.card}>
+                    <Pressable style={styles.card} onPress={()=>cardClick('bank')}>
                         <Text style={styles.cardText}>Bank</Text>
                         <Checkbox
                             style={styles.checkbox}
-                            value={isChecked}
-                            onValueChange={setChecked}
-                            color={isChecked ? 'blue' : undefined}
+                            value={bankCheck}
+                            color={bankCheck ? 'green' : undefined}
                         />
                     </Pressable>
                 </View>
@@ -169,7 +179,8 @@ const styles = StyleSheet.create({
     card:{
         flexDirection:"row",
         height:50,
-        backgroundColor:'black',
+        backgroundColor:'gray',
+        opacity:0.8,
         marginVertical:10,
         borderRadius:10,
         padding:15,
@@ -187,9 +198,8 @@ const styles = StyleSheet.create({
     checkbox: {
         borderRadius:100,
         backgroundColor:'white',
-        width:22,
-        height:22,
-        borderWidth:0
+        width:24,
+        height:24
     },
     btnContainer:{
         padding:15,
