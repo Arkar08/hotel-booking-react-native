@@ -1,5 +1,6 @@
 import Input from "@/components/Input";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -7,6 +8,7 @@ const cardImage = require("@/assets/images/loginImage4.png");
 
 const PersonalDetails = () => {
   const router = useRouter();
+  const [active, setActive] = useState(false)
 
   const cancelBtn = () => {
     router.push("/(profile)");
@@ -15,6 +17,10 @@ const PersonalDetails = () => {
   const saveBtn = () => {
     router.push("/(profile)");
   };
+
+  const editBtn = () => {
+    setActive(true)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,31 +33,44 @@ const PersonalDetails = () => {
             <Image source={cardImage} style={styles.image} />
           </View>
         </View>
+        {
+          !active && (
+            <View style={styles.editContainer}>
+              <Pressable style={styles.editBtn} onPress={editBtn}>
+                <Text style={styles.editText}>Edit</Text>
+              </Pressable>
+            </View>
+          )
+        }
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Name</Text>
-          <Input placeholder="Enter FullName" />
+          <Input placeholder="Enter FullName" editable={active}/>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Email</Text>
-          <Input placeholder="Enter Email" />
+          <Input placeholder="Enter Email" editable={active}/>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Password</Text>
-          <Input placeholder="Enter Password" />
+          <Input placeholder="Enter Password" editable={active}/>
         </View>
         <View style={styles.inputContainer}>
             <Text style={styles.label}>Phone Number</Text>
-            <Input placeholder="Enter phNo" maxLength={10} keyboardType="numeric"/>
+            <Input placeholder="Enter phNo" maxLength={10} keyboardType="numeric" editable={active}/>
         </View>
       </View>
-      <View style={styles.btnContainer}>
-        <Pressable onPress={cancelBtn} style={styles.cancelBtn}>
-          <Text style={styles.cancelText}>Cancel</Text>
-        </Pressable>
-        <Pressable onPress={saveBtn} style={styles.saveBtn}>
-          <Text style={styles.saveText}>Save</Text>
-        </Pressable>
-      </View>
+      {
+        active && (
+          <View style={styles.btnContainer}>
+            <Pressable onPress={cancelBtn} style={styles.cancelBtn}>
+              <Text style={styles.cancelText}>Cancel</Text>
+            </Pressable>
+            <Pressable onPress={saveBtn} style={styles.saveBtn}>
+              <Text style={styles.saveText}>Save</Text>
+            </Pressable>
+          </View>
+        )
+      }
     </SafeAreaView>
   );
 };
@@ -131,6 +150,22 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+  editBtn:{
+    padding:10,
+    backgroundColor:"blue",
+    width:150,
+    borderRadius:10,
+  },
+  editText:{
+    textAlign:'center',
+    color:'white'
+  },
+  editContainer:{
+    justifyContent:'center',
+    marginTop:20,
+    alignItems:'flex-end',
+    marginRight:10
+  }
 });
 
 export default PersonalDetails;

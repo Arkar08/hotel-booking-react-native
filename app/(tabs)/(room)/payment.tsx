@@ -1,7 +1,7 @@
 import { Checkbox } from 'expo-checkbox';
 import { useRouter } from 'expo-router';
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Pressable, ScrollView } from "react-native-gesture-handler";
 
 const Payment = () => {
@@ -57,7 +57,16 @@ const Payment = () => {
             <View  style={styles.mainContainer}>
                 <Text style={styles.mainText}>Room Details</Text>
                 <View style={styles.guest}>
-                    <Text style={styles.guestText}>Standard Room</Text>
+                    <Text style={styles.guestText}>Standard Room (104)</Text>
+                </View>
+            </View>
+            <View style={styles.mainContainer}>
+                <Text style={styles.mainText}>Apply Coupon</Text>
+                <View style={styles.couponContainer}>
+                    <TextInput placeholder="Enter Coupon Code" style={styles.input}/>
+                    <TouchableOpacity style={styles.addBtn}>
+                        <Text style={styles.addText}>Add</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View  style={styles.mainContainer}>
@@ -65,15 +74,15 @@ const Payment = () => {
                 <View style={styles.price}>
                     <View style={styles.priceContainer}>
                         <Text style={styles.guestText1}>Base Price</Text>
-                        <Text style={styles.guestText1}>100000</Text>
+                        <Text style={styles.guestText1}>100000Ks</Text>
                     </View>
                     <View style={styles.priceContainer}>
                         <Text style={styles.guestText1}>Apply Coupon</Text>
-                        <Text style={styles.guestText1}>100</Text>
+                        <Text style={styles.guestText1}>100Ks</Text>
                     </View>
                     <View style={styles.priceContainer1}>
                         <Text style={styles.guestText1}>Total Amount</Text>
-                        <Text style={styles.guestText1}>100000</Text>
+                        <Text style={styles.guestText1}>100000Ks</Text>
                     </View>
                 </View>
             </View>
@@ -217,6 +226,30 @@ const styles = StyleSheet.create({
     footer:{
         marginTop:20,
         marginBottom:30
+    },
+    couponContainer:{
+        flexDirection:'row',
+        marginVertical:20
+    },
+    addBtn:{
+        backgroundColor:'blue',
+        padding:13,
+        width:80,
+        borderTopRightRadius:10,
+        borderBottomRightRadius:10
+    },
+    addText:{
+        color:'white',
+        textAlign:'center',
+        fontSize:16,
+        fontWeight:'bold'
+    },
+    input:{
+        borderWidth:0.3,
+        width:'75%',
+        borderTopLeftRadius:10,
+        borderBottomLeftRadius:10,
+        paddingLeft:20
     }
 })
 

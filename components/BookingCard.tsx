@@ -44,9 +44,9 @@ export default BookingCard;
 const styles = StyleSheet.create({
     cardContainer:{
         width:'95%',
-        height:230,
+        height:220,
         borderWidth:0.3,
-        margin:'auto',
+        marginHorizontal:'auto',
         borderRadius:10,
         marginTop:20,
         padding:10
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         flexDirection:'row',
-        marginTop:10
+        marginTop:5
     },
     price:{
         color:'blue'

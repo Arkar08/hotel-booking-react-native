@@ -87,11 +87,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cardContainer: {
-    marginTop: 10,
+    marginTop: 10
   },
   cardList: {
-    paddingBottom: 15,
-    maxHeight: 625,
+    height: 625,
     overflow: "scroll",
   },
 });

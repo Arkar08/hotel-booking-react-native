@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
         width:'47%',
         borderWidth:0.3,
         height:280,
-        marginTop:15,
         borderRadius:10,
-        margin:'auto',
-        position:'relative'
+        marginHorizontal:'auto',
+        position:'relative',
+        marginBottom:30
     },
     cardImage:{
         width:'100%',

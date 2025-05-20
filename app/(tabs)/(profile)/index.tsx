@@ -27,6 +27,20 @@ const Profile = () => {
           </View>
         </View>
       </View>
+      <View style={styles.middleContainer}>
+          <View style={styles.middleCard}>
+            <Text style={styles.middleMain}>Points</Text>
+            <Text>100</Text>
+          </View>
+          <View style={styles.middleCard}>
+            <Text style={styles.middleMain}>Coupon</Text>
+            <Text>100</Text>
+          </View>
+          <View style={styles.middleCard}>
+            <Text style={styles.middleMain}>Amount</Text>
+            <Text>100000</Text>
+          </View>
+      </View>
       <View style={styles.footer}>
         <Pressable
           style={styles.footerCard}
@@ -137,6 +151,27 @@ const styles = StyleSheet.create({
   personalText: {
     fontSize: 16,
   },
+  middleContainer:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginTop:10,
+    paddingHorizontal:20
+  },
+  middleCard:{
+    width:100,
+    height:100,
+    borderWidth:0.3,
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius:10
+  },
+  middleMain:{
+    fontWeight:'bold',
+    fontSize:18,
+    textAlign:'center',
+    paddingBottom:10
+  }
 });
 
 export default Profile;
