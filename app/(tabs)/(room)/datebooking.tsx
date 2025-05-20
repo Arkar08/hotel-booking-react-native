@@ -10,10 +10,12 @@ const DateBooking = () => {
 
   const [date,setDate] = useState(new Date())
   const [showPicker ,setShowPicker] = useState(false)
-  const [checkIn,setCheckIn] = useState('')
+  const [checkIn,setCheckIn] = useState<Date | null>(null)
   const [checkOutDate,setCheckOutDate] = useState(new Date())
   const [showCheckOut,setShowCheckOut] = useState(false)
-  const [checkOut,setCheckOut] = useState('')
+  const [showTime,setShowTime] = useState(false)
+  const [checkOut,setCheckOut] = useState<Date | null>(null)
+  const [showCheckInTime,setShowCheckInTime] = useState(false)
 
   const toggleDatePicker = () => {
     setShowPicker(!showPicker)
@@ -25,6 +27,7 @@ const DateBooking = () => {
       setDate(currentDate)
       setShowPicker(false)
       setCheckIn(currentDate)
+      setShowCheckInTime(true)
     }else{
       toggleDatePicker()
     }
@@ -40,10 +43,33 @@ const DateBooking = () => {
       setCheckOutDate(currentDate)
       setCheckOut(currentDate)
       setShowCheckOut(false)
+      setShowTime(true)
     }else{
       toggelCheckOut()
     }
   }
+
+  const onTimeChange = (event:any, selectTime: Date | undefined) => {
+    setShowTime(false);
+    if (selectTime) {
+      const updatedDate = new Date(checkOutDate);
+      updatedDate.setHours(selectTime.getHours());
+      updatedDate.setMinutes(selectTime.getMinutes());
+      setCheckOutDate(updatedDate);
+      setCheckOut(updatedDate)
+    }
+};
+
+const onCheckInTimeChange = (event:any, selectTime: Date | undefined) => {
+    setShowCheckInTime(false);
+    if (selectTime) {
+      const updatedDate = new Date(date);
+      updatedDate.setHours(selectTime.getHours());
+      updatedDate.setMinutes(selectTime.getMinutes());
+      setDate(updatedDate);
+      setCheckIn(updatedDate)
+    }
+};
 
   const router = useRouter()
 
@@ -73,28 +99,41 @@ const DateBooking = () => {
           {
             !showPicker && (
               <Pressable onPress={toggleDatePicker} style={styles.checkIn}>
-                <Text  style={styles.checkText}>{checkIn === '' ? 'CheckIn Date' : moment(checkIn).format("MMM Do YY")   }</Text>
+                <Text  style={styles.checkText}>{checkIn === null ? 'CheckIn Date' : moment(checkIn).format('MMMM Do YYYY, h:mm:ss a')   }</Text>
               </Pressable>
             )
           }
           {
             showPicker && (
-              <DateTimePicker mode="date" minimumDate={new Date()} display='calendar' value={date} onChange={onChange}/>
+              <DateTimePicker mode="date" minimumDate={new Date()} value={date} onChange={onChange}/>
             )
           }
+          {
+            showCheckInTime &&(
+              <DateTimePicker mode="time" value={date} onChange={onCheckInTimeChange}/>
+            
+            )
+          }
+          
       </View>
        <View style={styles.inputContainer}>
           <Text style={styles.label}>Check Out</Text>
           {
             !showCheckOut && (
               <Pressable onPress={toggelCheckOut}  style={styles.checkIn}>
-                <Text style={styles.checkText}>{checkOut === '' ? 'CheckOut Date' : moment(checkOut).format("MMM Do YY")   }</Text>
+                <Text style={styles.checkText}>{checkOut === null? 'CheckOut Date' : moment(checkOut).format('MMMM Do YYYY, h:mm:ss a')   }</Text>
               </Pressable>
             )
           }
           {
             showCheckOut && (
-              <DateTimePicker mode="date" minimumDate={new Date()} display='calendar' value={checkOutDate} onChange={checkoutChange}/>
+              <DateTimePicker mode="date" minimumDate={checkIn ? new Date(checkIn.getTime() + 24 * 60 * 60 * 1000) : new Date()} value={checkOutDate} onChange={checkoutChange}/>
+            )
+          }
+          {
+            showTime &&(
+              <DateTimePicker mode="time" value={checkOutDate} onChange={onTimeChange}/>
+            
             )
           }
       </View>
