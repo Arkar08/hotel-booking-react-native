@@ -99,7 +99,7 @@ const onCheckInTimeChange = (event:any, selectTime: Date | undefined) => {
           {
             !showPicker && (
               <Pressable onPress={toggleDatePicker} style={styles.checkIn}>
-                <Text  style={styles.checkText}>{checkIn === null ? 'CheckIn Date' : moment(checkIn).format('MMMM Do YYYY, h:mm:ss a')   }</Text>
+                <Text  style={styles.checkText}>{checkIn === null ? 'CheckIn Date' : moment(checkIn).format('llll')   }</Text>
               </Pressable>
             )
           }
@@ -120,14 +120,14 @@ const onCheckInTimeChange = (event:any, selectTime: Date | undefined) => {
           <Text style={styles.label}>Check Out</Text>
           {
             !showCheckOut && (
-              <Pressable onPress={toggelCheckOut}  style={styles.checkIn}>
-                <Text style={styles.checkText}>{checkOut === null? 'CheckOut Date' : moment(checkOut).format('MMMM Do YYYY, h:mm:ss a')   }</Text>
+              <Pressable onPress={toggelCheckOut}  style={styles.checkIn} disabled={checkIn === null}>
+                <Text style={styles.checkText}>{checkOut === null? 'CheckOut Date' : moment(checkOut).format('llll')   }</Text>
               </Pressable>
             )
           }
           {
             showCheckOut && (
-              <DateTimePicker mode="date" minimumDate={checkIn ? new Date(checkIn.getTime() + 24 * 60 * 60 * 1000) : new Date()} value={checkOutDate} onChange={checkoutChange}/>
+              <DateTimePicker mode="date" minimumDate={checkIn ? new Date(checkIn.getTime() + 48 * 60 * 60 * 1000) : new Date()} value={checkOutDate} onChange={checkoutChange}/>
             )
           }
           {

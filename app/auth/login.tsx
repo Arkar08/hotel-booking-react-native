@@ -1,15 +1,26 @@
 import ButtonProps from "@/components/Button";
 import Input from "@/components/Input";
-import { router } from "expo-router";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useRouter } from "expo-router";
+import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const loginImage = require("@/assets/images/hotel-image.png");
 
 const Login = () => {
+
+  const router = useRouter();
+  const [showEye,setShowEye] = useState(true)
+
   const loginBtn = async () => {
     alert("Login Successfully.");
   };
+  
+  const eyePassword = () => {
+    setShowEye(!showEye)
+  }
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,14 +31,29 @@ const Login = () => {
         <Image source={loginImage} style={styles.image} />
       </View>
       <View style={styles.inputContainer}>
-        <Input placeholder="Enter Email" type="text" />
-        <Input placeholder="Enter Password" type="text" />
+        <View>
+          <Text style={{paddingLeft:5,paddingBottom:5,fontWeight:'bold',fontSize:16}}>Email</Text>
+          <Input placeholder="Enter Email" type="text"keyboardType="email-address"autoComplete="email"  autoCapitalize="none"/>
+        </View>
+        <View>
+            <Text style={{paddingLeft:5,paddingBottom:5,fontWeight:'bold',fontSize:16}}>Password</Text>
+            <Input placeholder="Enter Password" type="text" keyboardType="password" autoComplete="password" autoCapitalize="none" secureTextEntry={showEye}/>
+            <Pressable style={{position:"absolute",right:20,top:'50%'}} onPress={eyePassword}>
+            {
+              showEye ? (
+                <Ionicons name="eye-off" size={24} color="black" />
+              ):(
+                <Ionicons name="eye" size={24} color="black" /> 
+              )
+            }
+          </Pressable>
+        </View>
         <ButtonProps title="Login" click={loginBtn} />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.registerText}>
           Don&apos;t have An Account?{" "}
-          <Pressable onPress={() => router.push("/(auth)/register")}>
+          <Pressable onPress={()=> router.push("/auth/register")}>
             <Text style={styles.linkText}>Register</Text>
           </Pressable>
         </Text>
@@ -43,13 +69,13 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    height: 400,
+    height: 300,
     justifyContent: "center",
     alignItems: "center",
   },
   image: {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
   },
   inputContainer: {
     width: "90%",

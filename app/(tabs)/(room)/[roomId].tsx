@@ -10,11 +10,11 @@ const RoomDetails = () => {
   const router = useRouter();
 
   const backBtn = () => {
-    router.push("/(room)");
+    router.push("/(tabs)/(room)");
   };
 
   const booking = () => {
-    router.push("/(room)/datebooking");
+    router.push("/datebooking");
   };
 
   return (
