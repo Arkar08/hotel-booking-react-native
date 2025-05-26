@@ -1,5 +1,7 @@
 import ButtonProps from "@/components/Button";
 import Input from "@/components/Input";
+import { useAuth } from "@/hooks/useAuth";
+import { auth } from "@/utils/type";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -12,13 +14,39 @@ const Login = () => {
 
   const router = useRouter();
   const [showEye,setShowEye] = useState(true)
+  const [users,setUsers] = useState<auth>({
+    email:'',
+    password:""
+  })
 
-  const loginBtn = async () => {
-    alert("Login Successfully.");
+  const {login} = useAuth()
+
+
+  const loginBtn = async() => {
+      try {
+        await login(users);
+        router.push("/(tabs)")
+      } catch (error) {
+        console.log(error)
+      }
   };
   
   const eyePassword = () => {
     setShowEye(!showEye)
+  }
+
+  const handleChange = (value:any) => {
+    setUsers((prev)=> (
+      {...prev,email:value}
+    ))
+  }
+
+  const handlePasswordChange = (value:string) =>{
+    setUsers((prev)=>(
+      {
+        ...prev,password:value
+      }
+    ))
   }
 
 
@@ -33,11 +61,11 @@ const Login = () => {
       <View style={styles.inputContainer}>
         <View>
           <Text style={{paddingLeft:5,paddingBottom:5,fontWeight:'bold',fontSize:16}}>Email</Text>
-          <Input placeholder="Enter Email" type="text"keyboardType="email-address"autoComplete="email"  autoCapitalize="none"/>
+          <Input placeholder="Enter Email" type="text" keyboardType="email-address"autoComplete="email"  autoCapitalize="none" value={users.email} onChangeText={handleChange}/>
         </View>
         <View>
             <Text style={{paddingLeft:5,paddingBottom:5,fontWeight:'bold',fontSize:16}}>Password</Text>
-            <Input placeholder="Enter Password" type="text" keyboardType="password" autoComplete="password" autoCapitalize="none" secureTextEntry={showEye}/>
+            <Input placeholder="Enter Password" type="text" keyboardType="password" autoComplete="password" autoCapitalize="none" secureTextEntry={showEye} value={users.password} onChangeText={handlePasswordChange}/>
             <Pressable style={{position:"absolute",right:20,top:'50%'}} onPress={eyePassword}>
             {
               showEye ? (

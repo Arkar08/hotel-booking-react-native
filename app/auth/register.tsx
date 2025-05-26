@@ -1,5 +1,6 @@
 import ButtonProps from "@/components/Button";
 import Input from "@/components/Input";
+import { useAuth } from "@/hooks/useAuth";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from "expo-router";
 import { useState } from "react";
@@ -10,13 +11,33 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Register = () => {
 
   const [showEye,setShowEye] = useState(true)
+  const [users,setUsers] = useState({
+    name:"",
+    email:"",
+    password:""
+  })
 
-  const registerBtn = () => {
+  const {register} = useAuth()
+
+  const registerBtn = async () => {
+    try {
+      await register(users)
+    } catch (error) {
+        console.log(error)
+    }
     alert("Register Successfully.");
   };
 
   const eyePassword = () => {
     setShowEye(!showEye)
+  }
+
+  const handleChange = (event:any) => {
+    setUsers((prev)=> (
+      {
+        ...prev,[event.target.name]:event.target.value
+      }
+    ))
   }
 
 
@@ -35,15 +56,15 @@ const Register = () => {
       <View style={styles.inputContainer}>
         <View>
           <Text style={{paddingLeft:5,paddingBottom:5,fontWeight:'bold',fontSize:16}}>Name</Text>
-          <Input placeholder="Enter Name" type="text" />
+          <Input placeholder="Enter Name" type="text" value={users.name} name="name" onChange={handleChange}/>
         </View>
         <View>
             <Text style={{paddingLeft:5,paddingBottom:5,fontWeight:'bold',fontSize:16}}>Email</Text>
-            <Input placeholder="Enter Email" type="text" keyboardType="email-address" autoComplete="email" autoCapitalize="none"/>
+            <Input placeholder="Enter Email" type="text" keyboardType="email-address" autoComplete="email" autoCapitalize="none" value={users.email} name="email" onChange={handleChange}/>
         </View>
         <View style={{position:"relative"}}>
           <Text style={{paddingLeft:5,paddingBottom:5,fontWeight:'bold',fontSize:16}}>Password</Text>
-          <Input placeholder="Enter Password" type="text" keyboardType="password" autoComplete="password" autoCapitalize="none" secureTextEntry={showEye}/>
+          <Input placeholder="Enter Password" type="text" keyboardType="password" autoComplete="password" autoCapitalize="none" secureTextEntry={showEye} value={users.password} name="password" onChange={handleChange}/>
           <Pressable style={{position:"absolute",right:20,top:'50%'}} onPress={eyePassword}>
             {
               showEye ? (

@@ -1,3 +1,5 @@
+import ButtonProps from '@/components/Button';
+import Input from '@/components/Input';
 import { Checkbox } from 'expo-checkbox';
 import { useRouter } from 'expo-router';
 import { useState } from "react";
@@ -6,8 +8,7 @@ import { Pressable, ScrollView } from "react-native-gesture-handler";
 
 const Payment = () => {
 
-    const [isChecked, setChecked] = useState(false);
-    const [bankCheck,setBankCheck] = useState(false)
+    const [checked,setChecked] = useState(false)
 
     const router = useRouter();
     const booking = () => {
@@ -15,14 +16,12 @@ const Payment = () => {
         router.push("/history")
     }
 
-    const cardClick = (text:string) => {
-        if(text === 'cash'){
-            setBankCheck(false)
-            setChecked(true)
-        }else{
-            setBankCheck(true)
-            setChecked(false)
-        }
+    const cardClick = () => {
+        setChecked(!checked)
+    }
+
+    const Pay = () => {
+        console.log("pay")
     }
 
 
@@ -89,23 +88,42 @@ const Payment = () => {
             <View  style={styles.mainContainer}>
                 <Text style={styles.mainText}>Select Your Payment</Text>
                 <View style={styles.cardContainer}>
-                    <Pressable style={styles.card} onPress={()=>cardClick('cash')}>
-                        <Text style={styles.cardText}>Cash</Text>
+                    <Pressable style={styles.card} onPress={cardClick}>
+                        <Text style={styles.cardText}>Deposit Payment</Text>
                         <Checkbox
                             style={styles.checkbox}
-                            value={isChecked}
-                            color={isChecked ? 'green' : undefined}
-                        />
-                    </Pressable>
-                    <Pressable style={styles.card} onPress={()=>cardClick('bank')}>
-                        <Text style={styles.cardText}>Bank</Text>
-                        <Checkbox
-                            style={styles.checkbox}
-                            value={bankCheck}
-                            color={bankCheck ? 'green' : undefined}
+                            value={checked}
+                            color={checked ? 'green' : undefined}
                         />
                     </Pressable>
                 </View>
+                {
+                    checked && (
+                        <View style={styles.depositCard}>
+                                <View style={styles.cardHeader}>
+                                    <Text style={styles.depositText}>Deposit Amount</Text>
+                                    <Text style={styles.depositText}>10000Ks</Text>
+                                </View>
+                                <View style={{padding:10}}>
+                                    <View style={{marginTop:10}}>
+                                        <Text style={{marginBottom:5}}>Account Name:</Text>
+                                        <Input placeholder='Enter accountName'/>
+                                    </View>
+                                    <View style={{marginTop:10}}>
+                                        <Text style={{marginBottom:5}}>Bank Account No:</Text>
+                                        <Input placeholder='Enter accountNo'/>
+                                    </View>
+                                    <View style={{marginTop:10}}>
+                                        <Text style={{marginBottom:5}}>Secret Pin:</Text>
+                                        <Input placeholder='Enter secretPin'/>
+                                    </View>
+                                    <View style={{marginTop:10,width:'50%',margin:'auto'}}>
+                                        <ButtonProps title='Pay' click={Pay} customStyles={styles.btnList}/>
+                                    </View>
+                                </View>
+                        </View>
+                    )
+                }
             </View>
             <View style={styles.footer}>
                 <Pressable style={styles.btnContainer} onPress={booking}>
@@ -250,6 +268,25 @@ const styles = StyleSheet.create({
         borderTopLeftRadius:10,
         borderBottomLeftRadius:10,
         paddingLeft:20
+    },
+    depositCard:{
+        borderRadius:10,
+        borderWidth:0.3
+    },
+    cardHeader:{
+        borderBottomWidth:0.3,
+        padding:10,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        height:50,
+        alignItems:'center'
+    },
+    depositText:{
+        fontSize:16,
+        fontWeight:'bold'
+    },
+    btnList:{
+        backgroundColor:"black"
     }
 })
 

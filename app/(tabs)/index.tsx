@@ -22,7 +22,7 @@ const cardImage = require("@/assets/images/loginImage4.png");
 const Home = () => {
   const router = useRouter();
   const [modalVisiable,setModalVisiable]  = useState(false)
-        const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState("");
   
     const select = [
         {key:'1', value:'Mobiles'},
@@ -49,6 +49,10 @@ const Home = () => {
   const popularClick = () => {
     router.push("/(room)/popular");
   };
+
+  const goToRoom = () => {
+    router.push("/(room)")
+  }
 
   const closeModal = () =>{
     setModalVisiable(false)
@@ -91,8 +95,10 @@ const Home = () => {
       </View>
       <View style={styles.mainContainer}>
         <View style={styles.inputContainer}>
-          <FontAwesome name="search" size={24} style={styles.inputIcon} />
-          <TextInput style={styles.input} placeholder="Search" />
+          <Pressable style={{width:'90%'}} onPress={goToRoom}>
+            <FontAwesome name="search" size={24} style={styles.inputIcon} />
+            <TextInput style={styles.input} placeholder="Search" editable={false}/>
+          </Pressable>
           <Pressable style={styles.filterIcon} onPress={()=>setModalVisiable(true)}>
             <MaterialIcons name="filter-list" size={24} color="black" />
           </Pressable>
@@ -179,7 +185,7 @@ const styles = StyleSheet.create({
     left: 12,
   },
   input: {
-    width: "90%",
+    width: "100%",
     borderWidth: 1,
     paddingHorizontal: 50,
     padding: 15,

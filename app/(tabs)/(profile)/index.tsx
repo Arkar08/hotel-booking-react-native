@@ -1,17 +1,27 @@
+import { useAuth } from "@/hooks/useAuth";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { router } from "expo-router";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const profileImage = require("@/assets/images/icon.png");
 
 const Profile = () => {
-  const logout = () => {
-    alert("Logout Successfully.");
-    router.push("/(auth)/login");
+
+  const {logout} = useAuth()
+  const router = useRouter()
+
+  const Logout = async() => {
+    try {
+      const message = await logout()
+      Alert.alert(`${message}`)
+      router.push("/auth/login")
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -82,7 +92,7 @@ const Profile = () => {
           </View>
           <AntDesign name="right" size={22} color="gray" />
         </Pressable> */}
-        <Pressable style={styles.footerCard} onPress={logout}>
+        <Pressable style={styles.footerCard} onPress={Logout}>
           <View style={styles.personal}>
             <MaterialIcons name="logout" size={22} />
             <Text style={styles.personalText}>Logout</Text>

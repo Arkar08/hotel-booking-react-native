@@ -1,17 +1,18 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type buttonType = {
     title:any;
     click:() => void;
+    customStyles?:any;
 }
 
-const ButtonProps = ({title,click}:buttonType) =>{
+const ButtonProps = ({title,click,customStyles ={}}:buttonType) =>{
     return (
-        <Pressable style={[styles.button]} onPress={click}>
+        <TouchableOpacity style={[styles.button,customStyles]} onPress={click}>
             <Text style={styles.text}>
                 {title}
             </Text>
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

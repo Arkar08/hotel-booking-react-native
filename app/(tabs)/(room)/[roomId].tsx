@@ -1,12 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 const roomImage = require("@/assets/images/loginImage4.png");
 
 const RoomDetails = () => {
-
-
   const router = useRouter();
 
   const backBtn = () => {
@@ -19,34 +18,47 @@ const RoomDetails = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={roomImage} style={styles.image} />
-        <Pressable style={styles.backIcon} onPress={backBtn}>
-          <Ionicons name="arrow-back-outline" size={24} color="white" />
-        </Pressable>
-      </View>
-      <View style={styles.carousalContainer}>
-        <View>
-          <Image source={roomImage} style={styles.crousalImage} />
-        </View>
-        <View>
-          <Image source={roomImage} style={styles.crousalImage} />
-        </View>
-        <View>
-          <Image source={roomImage} style={styles.crousalImage} />
-        </View>
-      </View>
-      <View style={styles.middleContainer}>
-        <Text style={styles.roomType}>Super Delux Room</Text>
-        <Text style={styles.roomNumber}>104</Text>
-        <Text style={styles.detail}>Room Details</Text>
-        <Text style={styles.detailText}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-          mollitia impedit non incidunt? Expedita nostrum deserunt provident
-          consequatur, optio consectetur iure, ipsam, sunt vitae enim assumenda
-          at adipisci ipsum temporibus.
-        </Text>
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.imageContainer}>
+            <Image source={roomImage} style={styles.image} />
+            <Pressable style={styles.backIcon} onPress={backBtn}>
+              <Ionicons name="arrow-back-outline" size={24} color="white" />
+            </Pressable>
+          </View>
+          <View style={styles.carousalContainer}>
+            <View>
+              <Image source={roomImage} style={styles.crousalImage} />
+            </View>
+            <View>
+              <Image source={roomImage} style={styles.crousalImage} />
+            </View>
+            <View>
+              <Image source={roomImage} style={styles.crousalImage} />
+            </View>
+          </View>
+          <View style={styles.middleContainer}>
+            <Text style={styles.roomType}>Super Delux Room</Text>
+            <Text style={styles.roomNumber}>104</Text>
+            <Text style={styles.detail}>Room Details</Text>
+            <Text style={styles.detailText}>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+              mollitia impedit non incidunt? Expedita nostrum deserunt provident
+              consequatur, optio consectetur iure, ipsam, sunt vitae enim
+              assumenda at adipisci ipsum temporibus.
+            </Text>
+          </View>
+          <View style={styles.middleContainer}>
+            <Text style={styles.roomType}>Super Delux Room</Text>
+            <Text style={styles.roomNumber}>104</Text>
+            <Text style={styles.detail}>Room Details</Text>
+            <Text style={styles.detailText}>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+              mollitia impedit non incidunt? Expedita nostrum deserunt provident
+              consequatur, optio consectetur iure, ipsam, sunt vitae enim
+              assumenda at adipisci ipsum temporibus.
+            </Text>
+          </View>
+      </ScrollView>
       <View style={styles.bottomContainer}>
         <Text style={styles.priceText}>10000/night</Text>
         <Pressable style={styles.button} onPress={booking}>
@@ -60,7 +72,6 @@ const RoomDetails = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: "relative",
   },
   imageContainer: {
     position: "relative",
@@ -102,13 +113,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bottomContainer: {
-    position: "absolute",
-    bottom: 0,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 10,
+    backgroundColor: "white",
   },
   priceText: {
     width: 150,

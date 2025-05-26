@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router';
 import moment from 'moment';
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { SelectList } from 'react-native-dropdown-select-list';
 
 const DateBooking = () => {
 
@@ -78,20 +77,6 @@ const onCheckInTimeChange = (event:any, selectTime: Date | undefined) => {
   }
 
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [selected, setSelected] = useState("");
-  
-    const data = [
-        {key:'1', value:'Mobiles'},
-        {key:'2', value:'Appliances'},
-        {key:'3', value:'Cameras'},
-        {key:'4', value:'Computers'},
-        {key:'5', value:'Vegetables'},
-        {key:'6', value:'Diary Products'},
-        {key:'7', value:'Drinks'},
-    ]
-
-
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -139,17 +124,11 @@ const onCheckInTimeChange = (event:any, selectTime: Date | undefined) => {
       </View>
       <View style={styles.inputContainer}>
           <Text style={styles.label}>Guest Count</Text>
-          <Input placeholder='Enter Guest Count' keyboardType="numeric" maxLength={2}/>
+          <Input placeholder='Enter Guest Count' keyboardType="numeric" maxLength={1}/>
       </View>
       <View style={styles.inputContainer}>
           <Text style={styles.label}>Room Type</Text>
-          <SelectList 
-              setSelected={setSelected} 
-              data={data}
-              placeholder='Select Room Type'
-              maxHeight={200}
-              boxStyles={{backgroundColor:"#E5E5E5",padding:15,borderRadius:20,borderWidth:0}}
-          />
+          <Input placeholder='Enter RoomType' editable={false}/>
       </View>
       <View style={styles.btnContainer}>
         <Pressable style={styles.btn} onPress={Continue}>
