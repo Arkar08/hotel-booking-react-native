@@ -54,7 +54,7 @@ const Profile = () => {
       <View style={styles.footer}>
         <Pressable
           style={styles.footerCard}
-          onPress={() => router.push("/personaldetail")}
+          onPress={() => router.push({pathname:"/personaldetail"})}
         >
           <View style={styles.personal}>
             <FontAwesome name="user" size={22} />
@@ -74,7 +74,7 @@ const Profile = () => {
         </Pressable>
         <Pressable
           style={styles.footerCard}
-          onPress={() => router.push("/notification")}
+          onPress={() => router.push({pathname:"/notification"})}
         >
           <View style={styles.personal}>
             <Ionicons name="notifications-sharp" size={22} />

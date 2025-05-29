@@ -52,3 +52,14 @@ export type roomId  = {
 export type roomContext = {
     rooms:rooms[]
 }
+
+
+export type booking = {
+    userId:string,
+    roomId:string,
+
+}
+
+export type bookingContext = {
+    booking:booking
+}

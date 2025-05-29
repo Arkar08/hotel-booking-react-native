@@ -43,11 +43,11 @@ const Home = () => {
   };
 
   const avaliableClick = () => {
-    router.push("/(room)/avaliable");
+    router.push({pathname:"/avaliable"});
   };
 
   const popularClick = () => {
-    router.push("/(room)/popular");
+    router.push({pathname:"/popular"});
   };
 
   const goToRoom = () => {

@@ -9,7 +9,7 @@ const History = () => {
 
     const download = () => {
         alert("download successfully")
-        router.push("/(tabs)")
+        router.push({pathname:"/(tabs)"})
     }
 
     return (

@@ -16,7 +16,7 @@ const Payment = () => {
     const router = useRouter();
     const booking = () => {
         alert("booking successfully.")
-        router.push("/history")
+        router.push({pathname:"/history"})
     }
 
     const cardClick = () => {

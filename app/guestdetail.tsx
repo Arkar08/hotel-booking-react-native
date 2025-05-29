@@ -42,7 +42,7 @@ const GuestDetail = () => {
   const proceedToPayment = () => {
     if (!edit) {
       router.push({
-        pathname: "/(tabs)/(booking)/payment",
+        pathname: "/payment",
         params: { data: JSON.stringify(mainData) },
       });
       setUsers({

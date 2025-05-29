@@ -9,7 +9,7 @@ const BookingCard = () =>{
     const router = useRouter();
 
     const bookingHistory = () => {
-        router.push("/(tabs)/(booking)/history")
+        router.push({pathname:"/history"})
     }
 
     return (
