@@ -1,49 +1,36 @@
-import Axios from "@/config/apiConfig";
-import { authType, roomContext } from "@/utils/type";
-import { createContext } from "react";
+
+import { url } from "@/config/apiConfig";
+import { authType, roomContext, rooms } from "@/utils/type";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 
 
-export const RoomContext = createContext<roomContext | undefined>({
-    rooms:{
-        roomNo:0,
-        roomType:"",
-        price:0,
-        description:"",
-        status:"",
-        isFeatured:"",
-        imgUrl:[],
-        createdAt:""
-    },
-    getRoom:() => {}
+export const RoomContext = createContext<roomContext>({
+    rooms:[]
 });
 
 
 const RoomProvider = ({children}:authType) => {
 
-    // const [rooms,setRooms] = useState({
-    //     roomNo:0,
-    //     roomType:"",
-    //     price:0,
-    //     description:"",
-    //     status:"",
-    //     isFeatured:"",
-    //     imgUrl:[],
-    //     createdAt:""
-    // })
-
+    const [rooms,setRooms] = useState<rooms[]>([])
 
 
     const getRoom = async() => {
-        await Axios.get("rooms").then((res)=>{
-            console.log(res)
-        },err => {
-            console.log(err)
+        await axios.get(`${url}room`).then((res:any)=>{
+            setRooms(res.data.data)
+        },(error:any)=>{
+            console.log(error)
         })
     }
 
 
-    const data = {getRoom}
+    useEffect(()=>{
+        getRoom()
+    },[])
+
+
+    const data = {rooms}
 
     return (
         <RoomContext.Provider value={data}>
@@ -53,3 +40,4 @@ const RoomProvider = ({children}:authType) => {
 }
 
 export default RoomProvider;
+

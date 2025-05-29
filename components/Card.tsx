@@ -1,9 +1,14 @@
+import { rooms } from "@/utils/type";
 import { useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 const cardImage = require("@/assets/images/loginImage4.png");
 
-const Card = ({item}:any) =>{
+interface Props {
+    item:rooms
+}
+
+const Card = ({item}:Props) =>{
 
     const router = useRouter();
 
@@ -14,12 +19,15 @@ const Card = ({item}:any) =>{
         })
     }
 
+    const imageArray = JSON.parse(item.imgUrl)
+
+    const images = imageArray.length === 0 ? cardImage :imageArray[0]
     return (
-        <Pressable style={styles.cardContainer} onPress={()=>roomView('2')}>
-            {/* <Text style={styles.status}>{item.status}</Text> */}
-            <Image source={cardImage} style={styles.cardImage}/>
+        <Pressable style={styles.cardContainer} onPress={()=>roomView(item.id)}>
+            <Text style={styles.status}>{item.status}</Text>
+            <Image source={{uri:images}} style={styles.cardImage}/>
             <View style={styles.textContainer}>
-                <Text style={styles.roomName}>{item.roomNumber}</Text>
+                <Text style={styles.roomName}>{item.roomNo}</Text>
                 <Text style={styles.locationName}>{item.type}</Text>
                 <Text style={styles.price}>{item.price}/night</Text>
             </View>

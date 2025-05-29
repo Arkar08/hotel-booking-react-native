@@ -1,26 +1,17 @@
 import Activity from "@/components/Activity";
 import Card from "@/components/Card";
 import { useRoom } from "@/hooks/useRoom";
-import { data } from "@/utils/dummy";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Room = () => {
+  const loading = false;
 
-  const [loading,setLoading] = useState(false)
-  const {getRoom} = useRoom()
-
-
-
-  useEffect(()=>{
-    getRoom()
-  },[getRoom])
-
+  const { rooms } = useRoom();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -33,26 +24,34 @@ const Room = () => {
       <View style={styles.mainContainer}>
         <View style={styles.inputContainer}>
           <FontAwesome name="search" size={24} style={styles.inputIcon} />
-          <TextInput style={styles.input} placeholder="Search" autoFocus={true}/>
+          <TextInput
+            style={styles.input}
+            placeholder="Search"
+          />
         </View>
-        {
-          loading ? (
-            <View style={{justifyContent:'center',alignItems:'center',margin:'auto',height:'80%'}}>
-              <Activity />
-            </View>
-          ) : (
-             <View style={styles.cardList}>
-              <FlatList
-                style={styles.cardContainer}
-                data={data}
-                keyExtractor={(data) => data.id}
-                renderItem={Card}
-                numColumns={2}
-                showsVerticalScrollIndicator={false}
-              />
-            </View>
-          )
-        }
+        {loading ? (
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "auto",
+              height: "80%",
+            }}
+          >
+            <Activity />
+          </View>
+        ) : (
+          <View style={styles.cardList}>
+            <FlatList
+              style={styles.cardContainer}
+              data={rooms}
+              keyExtractor={(room) => room.id}
+              renderItem={({ item }) => <Card item={item} />}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cardContainer: {
-    marginTop: 10
+    marginTop: 10,
   },
   cardList: {
     height: 625,

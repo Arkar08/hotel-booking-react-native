@@ -1,7 +1,7 @@
 import ButtonProps from '@/components/Button';
 import Input from '@/components/Input';
 import { Checkbox } from 'expo-checkbox';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Pressable, ScrollView } from "react-native-gesture-handler";
@@ -9,6 +9,9 @@ import { Pressable, ScrollView } from "react-native-gesture-handler";
 const Payment = () => {
 
     const [checked,setChecked] = useState(false)
+      const data = useLocalSearchParams();
+      const store = data.data ? JSON.parse(data.data as string) : {};
+
 
     const router = useRouter();
     const booking = () => {
@@ -34,13 +37,13 @@ const Payment = () => {
                 <View style={styles.dateContainer}>
                     <View style={styles.checkCard}>
                         <Text style={styles.checkText}>Check In</Text>
-                        <Text style={styles.checkText}>Mon 22 July</Text>
+                        <Text style={styles.checkText}>{store.checkIn}</Text>
                         <Text style={styles.checkText}>9:00 AM</Text>
                     </View>
                     <View style={styles.bar}></View>
                     <View style={styles.checkCard}>
                         <Text style={styles.checkText}>Check Out</Text>
-                        <Text style={styles.checkText}>Mon 23 July</Text>
+                        <Text style={styles.checkText}>{store.checkOut}</Text>
                         <Text style={styles.checkText}>12:00 AM</Text>
                     </View>
                 </View>
@@ -48,15 +51,15 @@ const Payment = () => {
             <View  style={styles.mainContainer}>
                 <Text style={styles.mainText}>Guest Details</Text>
                 <View style={styles.guest}>
-                    <Text style={styles.guestText}>Name: Arkar</Text>
-                    <Text style={styles.guestText}>Email: arkar@gmail.com</Text>
-                    <Text style={styles.guestText}>PhNo: 0978885566</Text>
+                    <Text style={styles.guestText}>Name: {store.users.name}</Text>
+                    <Text style={styles.guestText}>Email: {store.users.email}</Text>
+                    <Text style={styles.guestText}>PhNo: 0{store.users.phoneNumber}</Text>
                 </View>
             </View>
             <View  style={styles.mainContainer}>
                 <Text style={styles.mainText}>Room Details</Text>
                 <View style={styles.guest}>
-                    <Text style={styles.guestText}>Standard Room (104)</Text>
+                    <Text style={styles.guestText}>{store.roomType} ({store.roomNo})</Text>
                 </View>
             </View>
             <View style={styles.mainContainer}>
@@ -77,7 +80,7 @@ const Payment = () => {
                     </View>
                     <View style={styles.priceContainer}>
                         <Text style={styles.guestText1}>Apply Coupon</Text>
-                        <Text style={styles.guestText1}>100Ks</Text>
+                        <Text style={styles.guestText1}>0Ks</Text>
                     </View>
                     <View style={styles.priceContainer1}>
                         <Text style={styles.guestText1}>Total Amount</Text>
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
     dateContainer:{
         flexDirection:'row',
         margin:10,
-        marginHorizontal:20,
+        marginHorizontal:5,
         alignItems:'center',
         gap:20
     },

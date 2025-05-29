@@ -12,8 +12,6 @@ const RoomLayout = () => {
       <Stack.Screen name="popular" options={{ headerTitleAlign: "center",title:"Popular" }} />
       <Stack.Screen name="avaliable" options={{ headerTitleAlign: "center",title:"Avaliable" }} />
       <Stack.Screen name="guestdetail" options={{title:"Guest Detail"}}/>
-      <Stack.Screen name="payment" options={{title:"Review Details"}}/>
-      <Stack.Screen name="history" options={{ headerShown: false }} />
     </Stack>
   );
 };

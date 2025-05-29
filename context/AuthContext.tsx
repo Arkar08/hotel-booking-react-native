@@ -9,7 +9,7 @@ export const AuthContext = createContext<authContext | undefined>({
     register:() => {},
     // initilize:() => {},
     list:null,
-    active:false,
+    active:true,
     logout:() => {}
 })
 
@@ -25,13 +25,13 @@ const AuthProvider = ({children}:authType) => {
             password:password
         }
         try {
-            const response = await axios.post(`${url}/users/login`,data)
-            const {token,email} = response.data;
-            axios.defaults.headers.common['Authorization'] = `Baerer ${token}`
+            // const response = await axios.post(`${url}/users/login`,data)
+            // const {token,email} = response.data;
+            // axios.defaults.headers.common['Authorization'] = `Baerer ${token}`
             setActive(true)
             // await SecureStore.setItemAsync("token",String(token))
-            setList(token)
-            return email;
+            // setList(token)
+            // return email;
         } catch (error) {
             console.log(error)
             throw error;

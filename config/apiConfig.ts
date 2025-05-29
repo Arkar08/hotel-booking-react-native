@@ -1,1 +1,1 @@
-export const url = "https://hotel-booking-backend-express.onrender.com/api/v1"
+export const url = "https://hbms-gz44.onrender.com/api/v1/"

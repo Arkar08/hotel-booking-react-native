@@ -24,16 +24,31 @@ export type register = {
     password:string
 }
 
-export type roomContext = {
-    rooms:{
+export type rooms  = {
+        id:string,
         roomNo:number,
-        roomType:string,
+        type:string,
         price:number,
-        description:string,
         status:string,
-        isFeatured:string,
+        isFeatured:boolean,
+        details:any,
+        imgUrl:"string[]",
+        guestLimit:number
+}
+
+export type roomId  = {
+        id:string,
+        roomNo:number,
+        type:string,
+        price:number,
+        status:string,
+        isFeatured:boolean,
+        details:any,
         imgUrl:string[],
-        createdAt:string
-    },
-    getRoom:() => void;
+        guestLimit:number
+}
+
+
+export type roomContext = {
+    rooms:rooms[]
 }
