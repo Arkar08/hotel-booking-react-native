@@ -33,7 +33,7 @@ export default function RootLayout() {
                   <Stack.Screen name="guestdetail"   options={{headerTitleAlign:'center',headerTitle: 'Guest Detail'}}/>
                   <Stack.Screen name="history" options={{ headerShown: false }}/>
                   <Stack.Screen name="notification" options={{headerTitleAlign:'center',headerTitle: 'Notification'}}/>
-                  <Stack.Screen name="payment" options={{ headerShown: false }}/>
+                  <Stack.Screen name="payment"options={{headerTitleAlign:'center',headerTitle: 'Review Details'}}/>
                   <Stack.Screen name="personaldetail" options={{ headerShown: false }}/>
                   <Stack.Screen name="popular" options={{headerTitleAlign:'center',headerTitle: 'Popular'}}/>
                 </Stack>
