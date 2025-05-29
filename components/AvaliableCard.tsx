@@ -1,12 +1,13 @@
 import { useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-const cardImage = require("@/assets/images/loginImage4.png");
 
 const AvaliableCard = ({item}:any) => {
 
     const router = useRouter();
 
+    const imageArray = JSON.parse(item.imgUrl)
+    
     const viewRoom = (id:string) => {
         router.navigate({
             pathname:"/(tabs)/(room)/[roomId]",
@@ -15,17 +16,17 @@ const AvaliableCard = ({item}:any) => {
     }
 
     return (
-        <Pressable style={styles.card} onPress={()=>viewRoom('2')}>
-            <Image source={cardImage} style={styles.cardImage}/>
+        <Pressable style={styles.card} onPress={()=>viewRoom(item.id)}>
+            <Image source={{uri:imageArray[0]}} style={styles.cardImage}/>
             <View style={styles.textContainer}>
                 <View>
-                    <Text style={styles.roomName}>{item.roomNumber}</Text>
+                    <Text style={styles.roomName}>{item.roomNo}</Text>
                 </View>
                 <View>
                     <Text style={styles.locationName}>{item.type}</Text>
                 </View>
                 <View>
-                    <Text style={styles.price}>{item.price}/night</Text>
+                    <Text style={styles.price}>{item.price}Ks/night</Text>
                 </View>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>{item.status}</Text>

@@ -1,5 +1,5 @@
 import Modals from "@/components/Modals";
-import { data } from "@/utils/dummy";
+import { useRoom } from "@/hooks/useRoom";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -17,12 +17,18 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const cardImage = require("@/assets/images/loginImage4.png");
 
 const Home = () => {
   const router = useRouter();
   const [modalVisiable,setModalVisiable]  = useState(false)
   const [selected, setSelected] = useState("");
+
+  const {popularRoom,availableRoom} = useRoom()
+
+  const roomSlice = popularRoom.length > 6 ? popularRoom.slice(0,6):popularRoom;
+
+  const availableSlice = availableRoom.length > 6 ? availableRoom.slice(0,6):availableRoom;
+
   
     const select = [
         {key:'1', value:'Mobiles'},
@@ -64,18 +70,21 @@ const Home = () => {
   }
 
   const renderItem = ({ item }: any) => {
+
+    const imageArray = JSON.parse(item.imgUrl)
+
     return (
-      <Pressable style={styles.card} onPress={() => viewDetails("3")}>
-        <Image source={cardImage} style={styles.cardImage} />
+      <Pressable style={styles.card} onPress={() => viewDetails(item.id)}>
+        <Image source={{uri:imageArray[0]}} style={styles.cardImage} />
         <View style={styles.textContainer}>
           <View>
-            <Text style={styles.roomName}>{item.roomNumber}</Text>
+            <Text style={styles.roomName}>{item.roomNo}</Text>
           </View>
           <View>
             <Text style={styles.locationName}>{item.type}</Text>
           </View>
           <View>
-            <Text style={styles.price}>{item.price}/night</Text>
+            <Text style={styles.price}>{item.price}Ks/night</Text>
           </View>
           {/* <View style={styles.button}>
             <Text style={styles.buttonText}>{item.status}</Text>
@@ -112,7 +121,7 @@ const Home = () => {
         <View>
           <FlatList
             style={styles.cardContainer}
-            data={data}
+            data={roomSlice}
             horizontal={true}
             keyExtractor={(data) => data.id}
             renderItem={renderItem}
@@ -128,7 +137,7 @@ const Home = () => {
         <View>
           <FlatList
             style={styles.cardContainer}
-            data={data}
+            data={availableSlice}
             horizontal={true}
             keyExtractor={(data) => data.id}
             renderItem={renderItem}

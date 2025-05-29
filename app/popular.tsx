@@ -1,14 +1,16 @@
 import AvaliableCard from "@/components/AvaliableCard";
-import { data } from "@/utils/dummy";
+import { useRoom } from "@/hooks/useRoom";
 import { StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 const Popular = () => {
+
+  const {popularRoom} = useRoom()
   return (
     <View style={styles.container}>
       <View>
         <FlatList
-          data={data}
+          data={popularRoom}
           keyExtractor={(data) => data.id}
           renderItem={AvaliableCard}
         />

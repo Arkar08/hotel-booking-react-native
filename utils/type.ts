@@ -51,6 +51,8 @@ export type roomId  = {
 
 export type roomContext = {
     rooms:rooms[]
+    popularRoom:any[]
+    availableRoom:any[]
 }
 
 
